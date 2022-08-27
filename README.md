@@ -9,7 +9,7 @@ I've tested this code with our [Arduino MKR M-BUS shield](https://www.hwhardsoft
 
 
 
-![My image](https://user-images.githubusercontent.com/3049858/72681999-3a597480-3ac9-11ea-857b-fae4e47f3a2b.jpg)
+![My image](https://user-images.githubusercontent.com/3049858/187022691-3303bf25-59f0-47c8-9cf8-0825ec718d10.jpg))
 
 
 ## External libraries
