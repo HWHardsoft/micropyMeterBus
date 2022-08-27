@@ -1,4 +1,4 @@
-## Meter-Bus for MicroPython
+# Meter-Bus for MicroPython
 MicroPython  implementation of the Meter-Bus (M-Bus EN13757-3) protocol. 
 
 ## about M-BUS
@@ -18,7 +18,7 @@ MicroPython will not support the decimal function of standard Python. To solve t
 ## Examples
 Please enable/ disable the lines for UART configuration in the examples for your board first!
 
-# mbus-serial-scan.py
+### mbus-serial-scan.py
 This program will scan the M-Bus for dievices via the logical address. Currently it is limited to address 6 as maximum, but you can change the  
 
 
