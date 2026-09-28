@@ -1,3 +1,31 @@
+class _EnumMember:
+    __slots__ = ('name', 'value')
+    def __init__(self, name, value):
+        self.name = name
+        self.value = value
+
+    def __str__(self):
+        return str(self.value)
+
+def EnumClass(cls):
+    for key, val in list(cls.__dict__.items()):
+        if not key.startswith('_'):
+            setattr(cls, key, _EnumMember(key, val))
+    cls._value_map = {}
+    for v in cls.__dict__.values():
+        if isinstance(v, _EnumMember):
+            cls._value_map[v.value] = v
+
+    def __new__(cls, value):
+        if isinstance(value, _EnumMember):
+            return value
+        return cls._value_map[value]
+
+    cls.__new__ = __new__
+    return cls
+
+
+@EnumClass
 class MeasureUnit():
     KWH = "kWh"
     WH = "Wh"
@@ -33,6 +61,7 @@ class MeasureUnit():
     DBM = "dBm"
 
 
+@EnumClass
 class FunctionType():
     INSTANTANEOUS_VALUE = 0
     MAXIMUM_VALUE = 1
@@ -43,6 +72,7 @@ class FunctionType():
     MORE_RECORDS_FOLLOW = 6
 
 
+@EnumClass
 class DataEncoding():
     ENCODING_NULL = 0
     ENCODING_INTEGER = 1
@@ -51,6 +81,7 @@ class DataEncoding():
     ENCODING_VARIABLE_LENGTH = 4
 
 
+@EnumClass
 class VIFUnit():
     ENERGY_WH = 0x07                # E000 0xxx
     ENERGY_J = 0x0F                 # E000 1xxx
@@ -92,6 +123,7 @@ class VIFUnit():
     MANUFACTURER_SPEC = 0x7F        # E111 1111
 
 
+@EnumClass
 class VIFUnitExt():
     # Currency Units
     CURRENCY_CREDIT = 0x03  # E000 00nn Credit of 10 nn-3 of the nominal ...
@@ -167,6 +199,7 @@ class VIFUnitExt():
     RSSI = 0x71                             # E111 0001 RSSI
 
 
+@EnumClass
 class VIFUnitSecExt():
     RELATIVE_HUMIDITY = 0x1A
 
@@ -799,6 +832,7 @@ class VIFTable(object):
     }
 
 
+@EnumClass
 class TelegramDateMasks():
     DATE = 0x02             # "Auctual Date",            0010 Type G
     DATE_TIME = 0x04        # "Actual Date and Time",    0100 Type F
