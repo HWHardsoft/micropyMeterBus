@@ -143,13 +143,12 @@ class TelegramVariableDataRecord(object):
             return tdf.decodeRAW
 
         return {
-            te.ENCODING_INTEGER: lambda: int(
-                tdf.decodeInt * mult) if mult > 1.0 else DecimalNumber(
-                int(tdf.decodeInt * mult)),
+            te.ENCODING_INTEGER: lambda: DecimalNumber(
+                str(tdf.decodeInt * mult)),
             te.ENCODING_BCD: lambda: DecimalNumber(
-                int(tdf.decodeBCD * mult)),
+                str(tdf.decodeBCD * mult)),
             te.ENCODING_REAL: lambda: DecimalNumber(
-                int(tdf.decodeReal * mult)),
+                str(tdf.decodeReal * mult)),
             te.ENCODING_VARIABLE_LENGTH: lambda: tdf.decodeASCII,
             te.ENCODING_NULL: lambda: None
         }.get(enc, lambda: None)()
